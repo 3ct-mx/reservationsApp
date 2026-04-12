@@ -1,13 +1,21 @@
-package org.example;
+package com.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import io.muserver.MuServer;
+import io.muserver.MuServerBuilder;
+import org.example.controller.BookingHandler;
+
 public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
 
+    public static void main(String[] args) {
 
+        MuServerBuilder serverBuilder = MuServerBuilder.httpServer()
+                .withHttpPort(8080);
+
+        BookingHandler handler = new BookingHandler();
+        handler.register(serverBuilder);
+
+        MuServer server = serverBuilder.start();
+
+        System.out.println("Server started at " + server.uri());
     }
 }
